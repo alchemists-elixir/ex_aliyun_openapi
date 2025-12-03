@@ -32,8 +32,8 @@ defmodule ExAliyun.OpenAPI do
 
   @compile {:inline, get_timestamp: 0}
   def get_timestamp do
-    Timex.now()
-    |> Timex.lformat!("%FT%TZ", "en", :strftime)
+    DateTime.utc_now()
+    |> Calendar.strftime("%Y-%m-%dT%H:%M:%SZ")
   end
 
   @doc """
