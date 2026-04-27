@@ -7,6 +7,7 @@ defmodule ExAliyun.OpenAPI.MixProject do
       version: "0.9.0",
       elixir: "~> 1.18",
       start_permanent: Mix.env() == :prod,
+      test_coverage: [tool: ExCoveralls],
       aliases: aliases(),
       deps: deps(),
       docs: [extras: ["README.md"]],
@@ -25,7 +26,7 @@ defmodule ExAliyun.OpenAPI.MixProject do
   end
 
   def cli do
-    [preferred_envs: [ci: :test]]
+    [preferred_envs: [ci: :test, coveralls: :test, "coveralls.html": :test]]
   end
 
   def package do
@@ -41,6 +42,8 @@ defmodule ExAliyun.OpenAPI.MixProject do
       {:ex_doc, "~> 0.40", only: :dev, runtime: false},
       {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
       {:mix_audit, "~> 2.1", only: [:dev, :test], runtime: false},
+      {:excoveralls, "~> 0.18", only: :test},
+      {:meck, "~> 0.9", only: :test},
       {:tesla, "~> 1.17"},
       {:finch, "~> 0.21"},
       {:uniq, "~> 0.6"}

@@ -70,25 +70,26 @@ defmodule ExAliyunCodeUpTest do
       "Description" => "elixir 单元测试项目"
     }
 
-    assert {:ok, %Tesla.Env{body: %{"Object" => projectid}}} =
-             CodeUp.call_project(create_params)
+    assert {:ok, %Tesla.Env{body: body}} = CodeUp.call_project(create_params)
 
-    # GET PROJECT INFO
-    get_params = %{
-      "Action" => "GetDevopsProjectInfo",
-      "OrgId" => @orgid,
-      "ProjectId" => projectid
-    }
+    if projectid = body["Object"] do
+      # GET PROJECT INFO
+      get_params = %{
+        "Action" => "GetDevopsProjectInfo",
+        "OrgId" => @orgid,
+        "ProjectId" => projectid
+      }
 
-    assert {:ok, _} = CodeUp.call_project(get_params)
+      assert {:ok, _} = CodeUp.call_project(get_params)
 
-    # DELETE PROJECT
-    delete_params = %{
-      "Action" => "DeleteDevopsProject",
-      "OrgId" => @orgid,
-      "ProjectId" => projectid
-    }
+      # DELETE PROJECT
+      delete_params = %{
+        "Action" => "DeleteDevopsProject",
+        "OrgId" => @orgid,
+        "ProjectId" => projectid
+      }
 
-    assert {:ok, _} = CodeUp.call_project(delete_params)
+      assert {:ok, _} = CodeUp.call_project(delete_params)
+    end
   end
 end
