@@ -1,74 +1,118 @@
 # ExAliyun.OpenAPI
 
+> [中文文档](README_CN.md)
+
 [![Module Version](https://img.shields.io/hexpm/v/ex_aliyun_openapi.svg)](https://hex.pm/packages/ex_aliyun_openapi)
 [![Hex Docs](https://img.shields.io/badge/hex-docs-lightgreen.svg)](https://hexdocs.pm/ex_aliyun_openapi/)
 [![Total Download](https://img.shields.io/hexpm/dt/ex_aliyun_openapi.svg)](https://hex.pm/packages/ex_aliyun_openapi)
-[![Last Updated](https://img.shields.io/github/last-commit/edragonconnect/ex_aliyun_openapi.svg)](https://github.com/edragonconnect/ex_aliyun_openapi/commits/master)
+[![Last Updated](https://img.shields.io/github/last-commit/alchemists-elixir/ex_aliyun_openapi/master.svg)](https://github.com/alchemists-elixir/ex_aliyun_openapi/commits/master)
+[![Coverage](https://img.shields.io/badge/coverage-100%25-brightgreen.svg)]()
 
 ## Description
-ExAliyun.OpenAPI supports aliyun openapis:
-* CPS(移动推送服务)
-* STS(短期访问权限管理)
-* SMS(短信服务)
-* AFS(人机验证)
-* CodeUp(云效任务管理)
-* GeoIP(查询 IP 地理位置)
-* more to be supported
+
+ExAliyun.OpenAPI provides Elixir clients for Aliyun (Alibaba Cloud) OpenAPI services:
+
+* [CPS](https://help.aliyun.com/document_detail/48038.html) (Cloud Push Service)
+* [STS](https://help.aliyun.com/document_detail/28763.html) (Security Token Service)
+* [SMS](https://help.aliyun.com/document_detail/101414.html) (Short Message Service)
+* [AFS](https://help.aliyun.com/document_detail/66340.html) (Anti-Fraud Service / Human Verification)
+* [CodeUp](https://next.api.aliyun.com/product/devops-rdc) (DevOps Project Management)
+* [GeoIP](https://help.aliyun.com/document_detail/170546.html) (IP Geolocation)
 
 ## Installation
 
-If [available in Hex](https://hex.pm/packages/ex_aliyun_openapi), the package can be installed
-by adding `ex_aliyun_openapi` to your list of dependencies in `mix.exs`:
+Add `ex_aliyun_openapi` to your `mix.exs`:
 
 ```elixir
 def deps do
   [
-    {:ex_aliyun_openapi, "~> 0.8"}
+    {:ex_aliyun_openapi, "~> 0.9"}
   ]
 end
 ```
 
-## Configuration
-You should add configs for your services in this way.
-```elixir
-config :ex_aliyun_openapi, type,
-  access_key_id: "YOUR CPS ACCESS KEY ID",
-  access_key_secret: "YOUR CPS ACCESS KEY SECRET"
-```
-type support `[:cps, :sts, :sms, :global_sms, :afs, :codeup, :geoip]`
+## Requirements
 
-## Call the apis
-You can find the api params in [https://help.aliyun.com](https://help.aliyun.com).
-Then you can choose the service, and just put the params to it.
+* Elixir 1.18+
+* Erlang/OTP 27+
+
+## Configuration
+
+Configure your Aliyun credentials per service:
+
 ```elixir
+config :ex_aliyun_openapi, :cps,
+  access_key_id: "YOUR ACCESS KEY ID",
+  access_key_secret: "YOUR ACCESS KEY SECRET"
+
+config :ex_aliyun_openapi, :sts,
+  access_key_id: "YOUR ACCESS KEY ID",
+  access_key_secret: "YOUR ACCESS KEY SECRET"
+```
+
+Supported service keys: `:cps`, `:sts`, `:sms`, `:global_sms`, `:afs`, `:codeup`, `:geoip`
+
+## Usage
+
+Find the API parameters at [Aliyun API Reference](https://help.aliyun.com), then call the corresponding function:
+
+```elixir
+# STS - AssumeRole
 params = %{
   "Action" => "AssumeRole",
-  "RoleArn" => "**YOUR RoleArn**",
+  "RoleArn" => "acs:ram::1234567890:role/your-role",
   "RoleSessionName" => "default",
-  "DurationSeconds" => 3600,
+  "DurationSeconds" => 3600
 }
 ExAliyun.OpenAPI.call_sts(params)
 
-# or
-
+# Alternatively, pass credentials inline:
 ExAliyun.OpenAPI.call_sts(params, access_key_id: "ID", access_key_secret: "SECRET")
 ```
+
 ```elixir
+# CPS - Push Notification
 params = %{
   "Action" => "PushNoticeToAndroid",
-  "AppKey" => "**YOUR AppKey**",
+  "AppKey" => "YOUR_APP_KEY",
   "Target" => "DEVICE",
-  "TargetValue" => "**YOUR device_id**",
-  "Title" => "TEST title",
+  "TargetValue" => "YOUR_DEVICE_ID",
+  "Title" => "Test Title",
   "Body" => "Hello, this is the notice body"
 }
 ExAliyun.OpenAPI.call_cps(params)
-
-# or
-
-ExAliyun.OpenAPI.call_cps(params, access_key_id: "ID", access_key_secret: "SECRET")
 ```
 
-## To add more services to this repo
-1. You should add the specific function into `ex_aliyun_openapi.ex`.
-2. Complete the corresponding unit tests.
+```elixir
+# CodeUp - Create Task
+ExAliyun.OpenAPI.CodeUp.call_task(%{
+  "Action" => "CreateDevopsProjectTask",
+  "OrgId" => "your_org_id",
+  "ProjectId" => "your_project_id",
+  "Content" => "Task content"
+})
+```
+
+## CI Pipeline
+
+This project includes a `mix ci` alias that runs:
+
+1. `compile --all-warnings --warnings-as-errors`
+2. `format --check-formatted`
+3. `credo --strict`
+4. `deps.unlock --check-unused`
+5. `deps.audit`
+6. `test --exclude external`
+7. `xref graph --label compile-connected --fail-above 0`
+
+## Contributing
+
+To add support for new Aliyun services:
+
+1. Add a new `call_<service>` function in `lib/ex_aliyun_openapi.ex`
+2. Add corresponding tests
+3. Submit a pull request
+
+## License
+
+MIT

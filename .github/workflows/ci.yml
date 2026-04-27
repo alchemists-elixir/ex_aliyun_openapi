@@ -47,7 +47,7 @@ jobs:
         run: mix compile --all-warnings --warnings-as-errors
 
       - name: Run tests with coverage
-        run: mix coveralls --exclude external
+        run: mix coveralls.github --exclude external || mix coveralls --exclude external
 
       - name: Run Credo
         run: mix credo --strict
