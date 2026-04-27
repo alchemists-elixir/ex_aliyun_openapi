@@ -34,10 +34,9 @@ defmodule ExAliyun.OpenAPI.MixProject do
   defp deps do
     [
       {:ex_doc, "~> 0.28", only: :dev, runtime: false},
+      {:jason, "~> 1.1", only: :test},
       {:tesla, "~> 1.4"},
       {:finch, "~> 0.7"},
-      {:jason, "~> 1.1"},
-      {:timex, "~> 3.4"},
       {:uniq, "~> 0.6"}
     ]
   end
