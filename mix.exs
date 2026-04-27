@@ -5,8 +5,10 @@ defmodule ExAliyun.OpenAPI.MixProject do
     [
       app: :ex_aliyun_openapi,
       version: "0.9.0",
-      elixir: "~> 1.8",
+      elixir: "~> 1.18",
       start_permanent: Mix.env() == :prod,
+      test_coverage: [tool: ExCoveralls],
+      aliases: aliases(),
       deps: deps(),
       docs: [extras: ["README.md"]],
       description: "Aliyun OpenAPI for elixir",
@@ -23,6 +25,10 @@ defmodule ExAliyun.OpenAPI.MixProject do
     ]
   end
 
+  def cli do
+    [preferred_envs: [ci: :test, coveralls: :test, "coveralls.html": :test]]
+  end
+
   def package do
     [
       licenses: ["MIT"],
@@ -33,11 +39,28 @@ defmodule ExAliyun.OpenAPI.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:ex_doc, "~> 0.28", only: :dev, runtime: false},
-      {:jason, "~> 1.1", only: :test},
-      {:tesla, "~> 1.4"},
-      {:finch, "~> 0.7"},
+      {:ex_doc, "~> 0.40", only: :dev, runtime: false},
+      {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
+      {:mix_audit, "~> 2.1", only: [:dev, :test], runtime: false},
+      {:excoveralls, "~> 0.18", only: :test},
+      {:meck, "~> 0.9", only: :test},
+      {:tesla, "~> 1.17"},
+      {:finch, "~> 0.21"},
       {:uniq, "~> 0.6"}
+    ]
+  end
+
+  defp aliases do
+    [
+      ci: [
+        "compile --all-warnings --warnings-as-errors",
+        "format --check-formatted",
+        "credo --strict",
+        "deps.unlock --check-unused",
+        "deps.audit",
+        "test --exclude external",
+        "xref graph --label compile-connected --fail-above 0"
+      ]
     ]
   end
 end
