@@ -1,6 +1,7 @@
 defmodule ExAliyunCpsiTest do
   use ExUnit.Case
   doctest ExAliyun.OpenAPI
+  @moduletag :external
 
   test "cps: ListSummaryApps" do
     assert {:ok, _} = ExAliyun.OpenAPI.call_cps(%{"Action" => "ListSummaryApps"})
@@ -12,9 +13,9 @@ defmodule ExAliyunCpsiTest do
   end
 
   test "cps: Push -- superior -- ios" do
-    push_time = "2018-07-20T09:33:39Z"
+    _push_time = "2018-07-20T09:33:39Z"
     # target_value = %{and: [%{tag: "trevor"}, %{tag: "en"}]} |> Jason.encode!
-    target_value = %{tag: "trevor"} |> Jason.encode!()
+    target_value = %{tag: "trevor"} |> JSON.encode!()
 
     params = %{
       # "PushTime" => push_time,

@@ -1,6 +1,8 @@
 defmodule ExAliyunCodeUpTest do
   use ExUnit.Case
   doctest ExAliyun.OpenAPI
+  alias ExAliyun.OpenAPI.CodeUp
+  @moduletag :external
   @orgid "your_orgid"
 
   test "task: ListDevopsScenarioFieldConfig" do
@@ -10,7 +12,7 @@ defmodule ExAliyunCodeUpTest do
       "ProjectId" => "project_id"
     }
 
-    assert {:ok, _} = ExAliyun.OpenAPI.CodeUp.call_task(params) |> IO.inspect()
+    assert {:ok, _} = CodeUp.call_task(params)
 
     params = %{
       "Action" => "GetDevopsProjectTaskInfo",
@@ -18,7 +20,7 @@ defmodule ExAliyunCodeUpTest do
       "TaskId" => "your_task_id"
     }
 
-    assert {:ok, _} = ExAliyun.OpenAPI.CodeUp.call_task(params) |> IO.inspect()
+    assert {:ok, _} = CodeUp.call_task(params)
   end
 
   test "test:ListDevopsProjectTaskFlow" do
@@ -28,7 +30,7 @@ defmodule ExAliyunCodeUpTest do
       "ProjectId" => "your_project_id"
     }
 
-    assert {:ok, _} = ExAliyun.OpenAPI.CodeUp.call_task(params) |> IO.inspect()
+    assert {:ok, _} = CodeUp.call_task(params)
   end
 
   test "test:ListDevopsProjectTaskFlowStatus" do
@@ -38,7 +40,7 @@ defmodule ExAliyunCodeUpTest do
       "TaskFlowId" => "your_id "
     }
 
-    assert {:ok, _} = ExAliyun.OpenAPI.CodeUp.call_task(params) |> IO.inspect()
+    assert {:ok, _} = CodeUp.call_task(params)
   end
 
   test "test:createtask" do
@@ -56,7 +58,7 @@ defmodule ExAliyunCodeUpTest do
       "Visible" => "members"
     }
 
-    assert {:ok, _} = ExAliyun.OpenAPI.CodeUp.call_task(create_params) |> IO.inspect()
+    assert {:ok, _} = CodeUp.call_task(create_params)
   end
 
   test "project: CreateDevopsProject" do
@@ -69,7 +71,7 @@ defmodule ExAliyunCodeUpTest do
     }
 
     assert {:ok, %Tesla.Env{body: %{"Object" => projectid}}} =
-             ExAliyun.OpenAPI.CodeUp.call_project(create_params) |> IO.inspect()
+             CodeUp.call_project(create_params)
 
     # GET PROJECT INFO
     get_params = %{
@@ -78,7 +80,7 @@ defmodule ExAliyunCodeUpTest do
       "ProjectId" => projectid
     }
 
-    assert {:ok, _} = ExAliyun.OpenAPI.CodeUp.call_project(get_params) |> IO.inspect()
+    assert {:ok, _} = CodeUp.call_project(get_params)
 
     # DELETE PROJECT
     delete_params = %{
@@ -87,6 +89,6 @@ defmodule ExAliyunCodeUpTest do
       "ProjectId" => projectid
     }
 
-    assert {:ok, _} = ExAliyun.OpenAPI.CodeUp.call_project(delete_params) |> IO.inspect()
+    assert {:ok, _} = CodeUp.call_project(delete_params)
   end
 end

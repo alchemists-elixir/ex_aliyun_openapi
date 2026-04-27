@@ -5,25 +5,27 @@ defmodule ExAliyun.OpenAPI do
   * You can find the api params in [Official Link](https://help.aliyun.com).
   """
 
-  use Tesla, only: [:post]
   alias ExAliyun.OpenAPI.Utils
 
-  adapter {Tesla.Adapter.Finch, [name: ExAliyun.OpenAPI.Finch, receive_timeout: 30_000]}
+  def should_retry({:error, "timeout"}), do: true
+  def should_retry({:error, "socket closed"}), do: true
+  def should_retry({:ok, _}), do: false
+  def should_retry({:error, _}), do: false
 
-  plug Tesla.Middleware.Retry,
-    delay: 50,
-    max_retries: 2,
-    max_delay: 1000,
-    should_retry: fn
-      {:error, "timeout"} -> true
-      {:error, "socket closed"} -> true
-      {:ok, _} -> false
-      {:error, _} -> false
-    end
+  defp post(url, params), do: Tesla.post(client(), url, params)
 
-  plug Tesla.Middleware.Logger
-  plug Tesla.Middleware.FormUrlencoded
-  plug Tesla.Middleware.DecodeJson
+  defp client do
+    Tesla.client(
+      [
+        {Tesla.Middleware.Retry,
+         delay: 50, max_retries: 2, max_delay: 1000, should_retry: &__MODULE__.should_retry/1},
+        Tesla.Middleware.Logger,
+        Tesla.Middleware.FormUrlencoded,
+        {Tesla.Middleware.DecodeJson, engine: JSON}
+      ],
+      {Tesla.Adapter.Finch, [name: ExAliyun.OpenAPI.Finch, receive_timeout: 30_000]}
+    )
+  end
 
   @compile {:inline, get_access_info: 1}
   def get_access_info(service) do
