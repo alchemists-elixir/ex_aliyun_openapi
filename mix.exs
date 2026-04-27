@@ -7,7 +7,7 @@ defmodule ExAliyun.OpenAPI.MixProject do
       version: "0.9.0",
       elixir: "~> 1.18",
       start_permanent: Mix.env() == :prod,
-      test_coverage: [tool: ExCoveralls],
+      test_coverage: [tool: ExCoveralls, minimum_coverage: 80],
       aliases: aliases(),
       deps: deps(),
       docs: [extras: ["README.md"]],
@@ -32,7 +32,7 @@ defmodule ExAliyun.OpenAPI.MixProject do
   def package do
     [
       licenses: ["MIT"],
-      links: %{"Github" => "https://github.com/edragonconnect/ex_aliyun_openapi"}
+      links: %{"Github" => "https://github.com/alchemists-elixir/ex_aliyun_openapi"}
     ]
   end
 

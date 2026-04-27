@@ -6,7 +6,8 @@
 [![Hex Docs](https://img.shields.io/badge/hex-docs-lightgreen.svg)](https://hexdocs.pm/ex_aliyun_openapi/)
 [![Total Download](https://img.shields.io/hexpm/dt/ex_aliyun_openapi.svg)](https://hex.pm/packages/ex_aliyun_openapi)
 [![Last Updated](https://img.shields.io/github/last-commit/alchemists-elixir/ex_aliyun_openapi/master.svg)](https://github.com/alchemists-elixir/ex_aliyun_openapi/commits/master)
-[![Coverage](https://img.shields.io/badge/coverage-100%25-brightgreen.svg)]()
+[![CI](https://github.com/alchemists-elixir/ex_aliyun_openapi/actions/workflows/ci.yml/badge.svg)](https://github.com/alchemists-elixir/ex_aliyun_openapi/actions/workflows/ci.yml)
+[![Coverage Status](https://coveralls.io/repos/github/alchemists-elixir/ex_aliyun_openapi/badge.svg?branch=master)](https://coveralls.io/github/alchemists-elixir/ex_aliyun_openapi?branch=master)
 
 ## 简介
 
