@@ -115,7 +115,7 @@ defmodule ExAliyun.OpenAPITest do
         sts: [access_key_id: "id", access_key_secret: "secret"],
         sms: [access_key_id: "id", access_key_secret: "secret"],
         global_sms: [access_key_id: "id", access_key_secret: "secret"],
-        afs: [access_key_id: "id", access_key_secret: "secret"],
+        captcha: [access_key_id: "id", access_key_secret: "secret"],
         codeup: [access_key_id: "id", access_key_secret: "secret"],
         geoip: [access_key_id: "id", access_key_secret: "secret"]
       }
@@ -161,8 +161,8 @@ defmodule ExAliyun.OpenAPITest do
       assert {:ok, %{body: %{"ok" => true}}} = ExAliyun.OpenAPI.call_global_sms(%{})
     end
 
-    test "call_afs" do
-      assert {:ok, %{body: %{"ok" => true}}} = ExAliyun.OpenAPI.call_afs(%{})
+    test "call_captcha" do
+      assert {:ok, %{body: %{"ok" => true}}} = ExAliyun.OpenAPI.call_captcha(%{})
     end
 
     test "call_codeup" do

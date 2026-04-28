@@ -142,27 +142,35 @@ defmodule ExAliyun.OpenAPI do
   end
 
   @doc """
-  Aliyun Authenticate Sig Service(人机验证).
-  You can read the doc in [Official Link](https://help.aliyun.com/document_detail/66340.html).
+  Aliyun Captcha Service(验证码).
+  You can read the doc in [Official Link](https://help.aliyun.com/zh/captcha/captcha2-0/user-guide/server-access).
   """
-  def call_afs(params, access_info \\ nil) do
-    access_info = with nil <- access_info, do: get_access_info(:afs)
+  def call_captcha(params, access_info \\ nil) do
+    access_info = with nil <- access_info, do: get_access_info(:captcha)
     access_key_id = Keyword.get(access_info, :access_key_id)
     access_key_secret = Keyword.get(access_info, :access_key_secret)
+    region = Keyword.get(access_info, :region, "cn-shanghai")
+
+    host =
+      case region do
+        "sgp" -> "captcha.ap-southeast-1.aliyuncs.com"
+        _ -> "captcha.cn-shanghai.aliyuncs.com"
+      end
 
     params =
       %{
         "Format" => "JSON",
-        "Version" => "2018-01-12",
+        "Version" => "2023-03-05",
         "SignatureMethod" => "HMAC-SHA1",
         "SignatureVersion" => "1.0",
+        "Action" => "VerifyIntelligentCaptcha",
         "AccessKeyId" => access_key_id,
         "Timestamp" => get_timestamp(),
         "SignatureNonce" => Uniq.UUID.uuid1()
       }
       |> Utils.append_signature(params, access_key_secret)
 
-    post("https://afs.aliyuncs.com", params)
+    post("https://#{host}", params)
   end
 
   @doc """

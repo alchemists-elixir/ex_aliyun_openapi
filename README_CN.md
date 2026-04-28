@@ -16,7 +16,7 @@ ExAliyun.OpenAPI 为阿里云 OpenAPI 提供 Elixir 客户端，支持以下服�
 * [CPS](https://help.aliyun.com/document_detail/48038.html)（移动推送服务）
 * [STS](https://help.aliyun.com/document_detail/28763.html)（短期访问权限管理）
 * [SMS](https://help.aliyun.com/document_detail/101414.html)（短信服务）
-* [AFS](https://help.aliyun.com/document_detail/66340.html)（人机验证）
+* [Captcha](https://help.aliyun.com/zh/captcha/captcha2-0/user-guide/server-access)（验证码2.0）
 * [CodeUp](https://next.api.aliyun.com/product/devops-rdc)（云效任务管理）
 * [GeoIP](https://help.aliyun.com/document_detail/170546.html)（查询 IP 地理位置）
 
@@ -27,7 +27,7 @@ ExAliyun.OpenAPI 为阿里云 OpenAPI 提供 Elixir 客户端，支持以下服�
 ```elixir
 def deps do
   [
-    {:ex_aliyun_openapi, "~> 0.9"}
+    {:ex_aliyun_openapi, "~> 1.0"}
   ]
 end
 ```
@@ -51,7 +51,7 @@ config :ex_aliyun_openapi, :sts,
   access_key_secret: "你的 AccessKey Secret"
 ```
 
-支持的服务键：`:cps`、`:sts`、`:sms`、`:global_sms`、`:afs`、`:codeup`、`:geoip`
+支持的服务键：`:cps`、`:sts`、`:sms`、`:global_sms`、`:captcha`、`:codeup`、`:geoip`
 
 ## 使用
 

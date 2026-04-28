@@ -16,7 +16,7 @@ ExAliyun.OpenAPI provides Elixir clients for Aliyun (Alibaba Cloud) OpenAPI serv
 * [CPS](https://help.aliyun.com/document_detail/48038.html) (Cloud Push Service)
 * [STS](https://help.aliyun.com/document_detail/28763.html) (Security Token Service)
 * [SMS](https://help.aliyun.com/document_detail/101414.html) (Short Message Service)
-* [AFS](https://help.aliyun.com/document_detail/66340.html) (Anti-Fraud Service / Human Verification)
+* [Captcha](https://help.aliyun.com/zh/captcha/captcha2-0/user-guide/server-access) (验证码2.0 / Human Verification)
 * [CodeUp](https://next.api.aliyun.com/product/devops-rdc) (DevOps Project Management)
 * [GeoIP](https://help.aliyun.com/document_detail/170546.html) (IP Geolocation)
 
@@ -27,7 +27,7 @@ Add `ex_aliyun_openapi` to your `mix.exs`:
 ```elixir
 def deps do
   [
-    {:ex_aliyun_openapi, "~> 0.9"}
+    {:ex_aliyun_openapi, "~> 1.0"}
   ]
 end
 ```
@@ -51,7 +51,7 @@ config :ex_aliyun_openapi, :sts,
   access_key_secret: "YOUR ACCESS KEY SECRET"
 ```
 
-Supported service keys: `:cps`, `:sts`, `:sms`, `:global_sms`, `:afs`, `:codeup`, `:geoip`
+Supported service keys: `:cps`, `:sts`, `:sms`, `:global_sms`, `:captcha`, `:codeup`, `:geoip`
 
 ## Usage
 
