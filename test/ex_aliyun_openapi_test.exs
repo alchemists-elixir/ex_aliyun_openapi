@@ -165,6 +165,15 @@ defmodule ExAliyun.OpenAPITest do
       assert {:ok, %{body: %{"ok" => true}}} = ExAliyun.OpenAPI.call_captcha(%{})
     end
 
+    test "call_captcha with sgp region" do
+      assert {:ok, %{body: %{"ok" => true}}} =
+               ExAliyun.OpenAPI.call_captcha(%{},
+                 region: "sgp",
+                 access_key_id: "id",
+                 access_key_secret: "secret"
+               )
+    end
+
     test "call_codeup" do
       assert {:ok, %{body: %{"ok" => true}}} = ExAliyun.OpenAPI.call_codeup(%{})
     end
