@@ -65,14 +65,15 @@ defmodule ExAliyun.OpenAPI do
 
   @doc """
   Aliyun Security Token Service(短期访问权限).
-  You can read the doc in [Official Link](https://help.aliyun.com/document_detail/28576.html).
+  You can read the doc in [Official Link](https://help.aliyun.com/document_detail/28763.html).
   """
   def call_sts(params, access_info \\ nil) do
     access_info = with nil <- access_info, do: get_access_info(:sts)
     access_key_id = Keyword.get(access_info, :access_key_id)
     access_key_secret = Keyword.get(access_info, :access_key_secret)
 
-    # support host config, depends on your ECS node.(https://help.aliyun.com/document_detail/66053.html?spm=a2c6h.13066369.0.0.343e6ebaSfsUKj#reference_sdg_3pv_xdb)
+    # support host config, depends on your ECS node.
+    # https://help.aliyun.com/document_detail/66053.html#reference_sdg_3pv_xdb
     host = Keyword.get(access_info, :host, "https://sts.aliyuncs.com")
 
     params =
@@ -166,7 +167,7 @@ defmodule ExAliyun.OpenAPI do
 
   @doc """
   Aliyun Project Task Service of CodeUp (云效任务管理).
-  You can read the doc in [Official Link](https://help.aliyun.com/document_detail/179127.html).
+  You can read the doc in [Official Link](https://next.api.aliyun.com/product/devops-rdc).
   """
   def call_codeup(params, access_info \\ nil) do
     access_info = with nil <- access_info, do: get_access_info(:codeup)
@@ -192,7 +193,7 @@ defmodule ExAliyun.OpenAPI do
   @doc """
   Aliyun Describe Ipv4/6 Location Service(查询IPv4地理位置信息)
   Please note that when using API to query IP Location Information, you need to open the relevant service in the Product package page first.
-  You can read the doc in [Official Link](https://help.aliyun.com/document_detail/170546.html?spm=a2c4g.11186623.2.13.4acc1d5cnoHpyi).
+  You can read the doc in [Official Link](https://help.aliyun.com/document_detail/170546.html).
   """
   def call_geoip(params, access_info \\ nil) do
     access_info = with nil <- access_info, do: get_access_info(:geoip)
