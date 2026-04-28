@@ -141,10 +141,48 @@ defmodule ExAliyun.OpenAPI do
     post("https://sms-intl.ap-southeast-1.aliyuncs.com", params)
   end
 
+  @typedoc "Captcha verify param string from frontend callback"
+  @type captcha_verify_param :: String.t()
+
+  @typedoc "Captcha scene ID"
+  @type captcha_scene_id :: String.t()
+
+  @typedoc """
+  VerifyIntelligentCaptcha request params.
+  `CaptchaVerifyParam` is required, `SceneId` is optional.
+  """
+  @type captcha_request :: %{
+          required(:CaptchaVerifyParam) => captcha_verify_param(),
+          optional(:SceneId) => captcha_scene_id()
+        }
+
+  @typedoc "Verify result in response body"
+  @type captcha_verify_result :: %{
+          optional(:VerifyResult) => boolean(),
+          optional(:VerifyCode) => String.t(),
+          optional(:CertifyId) => String.t()
+        }
+
+  @typedoc """
+  VerifyIntelligentCaptcha response body.
+  Check `Result.VerifyResult` for verification outcome:
+  * `true` — verification passed
+  * `false` — verification failed (check `Result.VerifyCode` for reason)
+  """
+  @type captcha_response_body :: %{
+          optional(:RequestId) => String.t(),
+          optional(:Success) => boolean(),
+          optional(:Code) => String.t(),
+          optional(:Message) => String.t(),
+          optional(:Result) => captcha_verify_result()
+        }
+
   @doc """
   Aliyun Captcha Service(验证码).
   You can read the doc in [Official Link](https://help.aliyun.com/zh/captcha/captcha2-0/user-guide/server-access).
   """
+  @spec call_captcha(captcha_request(), keyword() | nil) ::
+          {:ok, Tesla.Env.t()} | {:error, term()}
   def call_captcha(params, access_info \\ nil) do
     access_info = with nil <- access_info, do: get_access_info(:captcha)
     access_key_id = Keyword.get(access_info, :access_key_id)
