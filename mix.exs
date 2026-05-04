@@ -41,6 +41,7 @@ defmodule ExAliyun.OpenAPI.MixProject do
     [
       {:ex_doc, "~> 0.40", only: :dev, runtime: false},
       {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
+      {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false},
       {:mix_audit, "~> 2.1", only: [:dev, :test], runtime: false},
       {:excoveralls, "~> 0.18", only: :test},
       {:meck, "~> 0.9", only: :test},
@@ -56,6 +57,7 @@ defmodule ExAliyun.OpenAPI.MixProject do
         "compile --all-warnings --warnings-as-errors",
         "format --check-formatted",
         "credo --strict",
+        "dialyzer",
         "deps.unlock --check-unused",
         "deps.audit",
         "test --exclude external",

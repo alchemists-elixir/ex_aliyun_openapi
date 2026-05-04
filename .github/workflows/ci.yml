@@ -31,6 +31,7 @@ jobs:
           path: |
             deps
             _build
+            ~/.cache/mix
           key: ${{ runner.os }}-elixir${{ matrix.elixir }}-otp${{ matrix.otp }}-${{ hashFiles('mix.lock') }}
           restore-keys: |
             ${{ runner.os }}-elixir${{ matrix.elixir }}-otp${{ matrix.otp }}-
@@ -43,6 +44,9 @@ jobs:
 
       - name: Compile with warnings as errors
         run: mix compile --all-warnings --warnings-as-errors
+
+      - name: Run dialyzer
+        run: MIX_ENV=test mix dialyzer
 
       - name: Run tests with coverage
         run: MIX_ENV=test mix coveralls.github --exclude external
