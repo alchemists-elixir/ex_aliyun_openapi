@@ -151,10 +151,7 @@ defmodule ExAliyun.OpenAPI do
   VerifyIntelligentCaptcha request params.
   `CaptchaVerifyParam` is required, `SceneId` is optional.
   """
-  @type captcha_request :: %{
-          required(:CaptchaVerifyParam) => captcha_verify_param(),
-          optional(:SceneId) => captcha_scene_id()
-        }
+  @type captcha_request :: %{String.t() => String.t()}
 
   @typedoc "Verify result in response body"
   @type captcha_verify_result :: %{
