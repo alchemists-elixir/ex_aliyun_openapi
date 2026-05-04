@@ -1,4 +1,4 @@
-# ExAliyun.OpenAPI
+# ExAliyun.OpenAPI (CN)
 
 > [English Documentation](README.md)
 

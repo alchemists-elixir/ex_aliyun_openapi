@@ -4,13 +4,13 @@ defmodule ExAliyun.OpenAPI.MixProject do
   def project do
     [
       app: :ex_aliyun_openapi,
-      version: "1.0.0",
+      version: "0.10.0",
       elixir: "~> 1.18",
       start_permanent: Mix.env() == :prod,
       test_coverage: [tool: ExCoveralls, minimum_coverage: 80],
       aliases: aliases(),
       deps: deps(),
-      docs: [extras: ["README.md"]],
+      docs: [main: "readme", extras: ["README.md", "README_CN.md", "CHANGELOG.md"]],
       description: "Aliyun OpenAPI for elixir",
       source_url: "https://github.com/edragonconnect/ex_aliyun_openapi",
       package: package()
